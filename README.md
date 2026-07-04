@@ -37,6 +37,14 @@ BoardHub is a high-fidelity, production-grade collaborative Kanban board applica
 
 ---
 
+## 🌐 Live Production URLs
+
+- **Live React Web App**: **[https://frontend-gilt-eight-23.vercel.app](https://frontend-gilt-eight-23.vercel.app)**
+- **Live Swagger API Reference**: **[https://boardhub-pkn8.onrender.com/api-docs](https://boardhub-pkn8.onrender.com/api-docs)**
+- **Uptime Health check Metric**: **[https://boardhub-pkn8.onrender.com/health](https://boardhub-pkn8.onrender.com/health)**
+
+---
+
 ## 📦 Quick Start (Docker Compose)
 
 The easiest way to run the entire stack (Database, Backend, and Frontend) is via Docker Compose.
