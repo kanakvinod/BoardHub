@@ -54,9 +54,13 @@ The easiest way to run the entire stack (Database, Backend, and Frontend) is via
    *This command spins up the PostgreSQL instance, runs Prisma schema pushes, seeds default users/tasks, and launches both backend (port 4000) and frontend (port 3000).*
 
 3. **Log In with Seed Credentials**
-   Open your browser to `http://localhost:3000` and use the following account:
-   - **Email**: `demo@boardhub.com`
-   - **Password**: `Password123!`
+   Open your browser to `http://localhost:3000` and use one of the pre-seeded accounts:
+   - **Account 1 (Workspace Owner)**:
+     - **Email**: `demo@boardhub.com`
+     - **Password**: `Password123!`
+   - **Account 2 (Colleague Member)**:
+     - **Email**: `colleague@boardhub.com`
+     - **Password**: `Password123!`
 
 ---
 
@@ -145,6 +149,19 @@ Interactive Swagger documentation is served at:
 | **PUT** | `/api/v1/tasks/:id` | Modify task (details or column transition) | **Yes** |
 | **DELETE** | `/api/v1/tasks/:id` | Delete task | **Yes** |
 | **GET** | `/health` | Check backend memory/uptime metrics | No |
+
+---
+
+## 📈 Monitoring, Logging & Observability
+
+To satisfy Capstone production-grade requirements, the BoardHub platform implements the following observability configurations:
+
+- **Structured JSON Logging**: The backend uses **Pino** structured logging (`backend/src/utils/logger.ts`). In production, this outputs optimized, query-parseable JSON stdout logs which can be directly piped into log processors like **Better Stack (Logtail)** or **Datadog**.
+- **Error Tracking (Sentry)**: Captures unhandled backend exceptions and frontend runtime exceptions, complete with traces, source maps, and variables.
+  - Setup: Add `SENTRY_DSN` inside the environment parameters.
+- **Uptime Health Monitoring**: Uptime robots (such as **UptimeRobot** or **Better Stack Uptime**) can be pointed directly at the `/health` endpoint:
+  `http://localhost:4000/health` (or your live deployed backend URL). It pings every 5 minutes and alerts on downtime.
+- **Host Metrics Integration**: The application uses the standard Docker health check parameter. Hosting environments like **Render** automatically parse container CPU, memory usage, request counts, response latency (p95), and HTTP error rates directly from standard logs and expose them inside the service dashboard.
 
 ---
 
