@@ -1,5 +1,6 @@
 # Stage 1: Build the TypeScript code
 FROM node:20-alpine AS builder
+RUN apk add --no-cache openssl libc6-compat
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -9,6 +10,7 @@ RUN npm run build
 
 # Stage 2: Create production runner
 FROM node:20-alpine AS runner
+RUN apk add --no-cache openssl libc6-compat
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/package*.json ./
