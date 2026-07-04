@@ -21,4 +21,4 @@ EXPOSE 4000
 # Health check to monitor backend uptime
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost:4000/health || exit 1
 
-CMD ["node", "dist/server.js"]
+CMD ["sh", "-c", "npx prisma db push --accept-data-loss && npx prisma db seed && node dist/server.js"]
